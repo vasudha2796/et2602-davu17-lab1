@@ -5,86 +5,93 @@ import re
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
+
 if len(sys.argv) != 2:
 	print("Enter Format: Server Application ipaddr_s:port")
-	sys.exit(1)
+	sys.exit()
+
 args = str(sys.argv[1].split(':')
 ip_addr = str(args[0])
-port = str(args[1])
+port = int(args[1])
 server.bind((ip_addr, port))
 server.listen(100)
 
+print('Client connecting ..')
+
 userlist = []
+userlist.append(server)
 user_templist = []
-u_list = {}
+u_flist = []
+user_finallist = {}
 
 def broadcast(message, conn):
-	for users in userlist:
-		if users != conn:
+	for sockets in u_flist:
+		if sockets != conn:
 			try:
-				users.send(message)
+				sockets.sendall(message.encode('utf_8')
 			except:
-				users.close()
-				userlist.remove(users)
+				sockets.close()
+				u_flist.remove(sockets)
+				del user_finallist[sockets]
+				userlist.remove(sockets)
 				
 def main():
 	print("Server connected on", ip_addr, port)
 	while True:
 		readsock,writesock,errorsock=select.select(userlist, [],[])
-		for users in readsock:
-			if users==server:
-				newuser,addr=server.accept()
-				newuser.sendall('Hello'.encode('utf_8'))
-				userlist.append(newuser)
-				user_templist.append(newuser)
+		for sockets in readsock:
+			if sockets==server:
+				newsockets,addr=server.accept()
+				newsockets.sendall('Hello 1'.encode('utf_8'))
+				userlist.append(newsockets)
+				user_templist.append(newsockets)
 				
-			elif users in user_templist:
+			elif sockets in user_templist:
 				try:
-					nick=users.recv(1024).decode('utf_8')
+					nick=sockets.recv(1024).decode('utf_8')
 					if nick:
 						find=re.search(r'NICK\s(\S*)', nick)
 						msg=str(find.group(1))
 						if len(msg)>12:
-							users.sendall(' Nicknames should not exceed 12 characters')
-						elif re.search(r'!@#$\' msg)
-                            				users.sendall('No special characters in nick names'.encode('utf_8'))
-                        		elif find:
-                            			users.sendall(('Welcome to chat '+str(msg)).encode('utf_8'))
-                            			u_list[users]=msg
-                            			user_templist.remove(users)
-                        		else:
-                            			users.sendall('Enter command NICK <nick>'.encode('utf_8'))
+							sockets.sendall(' Err: Nicknames should not exceed 12 characters'.encode('utf_8'))
+						elif re.search(r'!@#\$', msg)
+                            sockets.sendall('Err: No special characters in nick names'.encode('utf_8'))
+                        			elif find:
+                            				sockets.sendall(('Welcome to chat '+str(msg)).encode('utf_8'))
+                            				u_flist.append(sockets)
+							user_finallist[sockets]=msg
+							user_templist.remove(sockets)
+                            
+                        			else:
+                            				sockets.sendall('Err: Enter correct command NICK <nick>'.encode('utf_8'))
+                			else:
+						sockets.close()
+						user_list.remove(sockets)
+						user_templist.remove(sockets)
+				except:
+					continue
+			elif sockets in u_flist:
+				try:
+					message=sockets.recv(1024).decode('utf_8')
+					if message:
+						find=re.search(r'MESSAGE\s', message)
+					if len(message)>256:
+						sockets.sendall('Err: Length of msg should be 256 characters'.encode('utf_8'))
+					elif find:
+						send_msg='MESSAGE' +str(user_finallist[sockets])+': '+message[4:]
+						broadcast(send_msg,sockets)
 					else:
-						users.close()
-						userlist.remove(users)
-						user_templist.remove(users)
-                			except:
-                    				continue
+						sockets.sendall('Err: Correct command MESSAGE <message>'.encode('utf_8'))
+				else:
+					sockets.close()
+					user_list.remove(sockets)
+					u_flist.remove(sockets)
+					del user_finalist[sockets]
+			except:
+				continue
 
-				elif users in u_list:
-					try:
-						msg=users.recv(1024).decode('utf_8')
-						if msg:
-							find=re.search(r'@#%/\s',msg)
-							if len(msg)>256:
-								users.sendall('Message should be 256 characters limit'.encode('utf_8'))
-							elif find:
-								msg_s = 'MSG '+str(u_list[users]+': '+msg[4:]
-								broadcast(msg_s, users)
-							else:
-								users.sendall('Enter MSG <msg>'.encode('utf_8'))
-							else:
-								users.close()
-								userlist.remove(users)
-								del u_list[users]
-							except:
-								continue
-				server.close()
-if __name__ == "__main__":
-	main()
-
-                    	
-    server.close()
+                    
+    	server.close()
  if __name__ == "__main__":
     main()
                 
