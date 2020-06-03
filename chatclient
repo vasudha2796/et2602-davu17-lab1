@@ -1,0 +1,71 @@
+#!/usr/bin/python3
+
+import socket
+import sys
+from _thread import *
+import select 
+import re 
+
+if len(sys.argv)!=3:
+    print("Enter Format: clientscript ip:port nickname")#input format
+    sys.exit()
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+
+data1 = (sys.argv[1])
+data2=data1.split(':')
+addr=str(data2[0])
+port=int(data2[1])
+nick=str(sys.argv[2])
+
+
+s.connect((addr, port))
+
+first_msg=s.recv(2048).decode('utf-8')
+
+print(first_msg)
+
+nick = 'NICK ' + nick
+
+
+s.sendall(nick.encode('utf-8'))
+
+ok_msg=s.recv(2048).decode('utf-8')
+print(ok_msg)
+if ok_msg == "OK":
+    pass
+elif ok_msg == "ERR malformed nick name":
+    print('write a nick name upto 12 characters without special characters')
+    print('try again with valid nickname, disconnected for now')
+    sys.exit()
+    
+    
+
+
+
+while True:
+    socket_list=[sys.stdin, s]
+    
+
+    read_sockets,write_sockets,error_sockets=select.select(socket_list,[],[])
+    
+    for sockets in read_sockets:
+        if sockets == s:
+            message = sockets.recv(2048).decode('utf-8')
+            print(message)
+        else:
+            message=sys.stdin.readline()
+            
+            message = 'MSG '+ message
+            if message == '\n':
+                continue
+            else:
+                s.sendall(message.encode('utf-8'))
+                
+s.close()
+
+
+
