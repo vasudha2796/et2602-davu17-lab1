@@ -1,0 +1,71 @@
+commit 618e350b98734ecfd02d2627515145bd2d1bdd53
+Author: vasudha2796 <vasudha.dasari@yahoo.com>
+Date:   Wed Jun 3 17:14:01 2020 +0200
+
+    server file
+
+commit 67bc619d59a3174c3c94d67bfa78eca5efeecb23
+Author: vasudha2796 <vasudha.dasari@yahoo.com>
+Date:   Wed Jun 3 17:12:59 2020 +0200
+
+    client file
+
+commit 71215831cfacdf8da107087f83d6d4c39ca95cf2
+Author: vasudha2796 <vasudha.dasari@yahoo.com>
+Date:   Tue Jun 2 23:23:47 2020 +0200
+
+    updated both files
+
+commit 9bbbcbdc10ce252cbab839f427a592d6f47b9384
+Author: vasudha2796 <vasudha.dasari@yahoo.com>
+Date:   Sun May 31 23:45:48 2020 +0200
+
+    updated
+
+commit 42137f2511a39cd1ec07b067ed7967370d629f93
+Author: vasudha2796 <vasudha.dasari@yahoo.com>
+Date:   Sun May 31 23:26:09 2020 +0200
+
+    chat application
+
+commit 29d073afeb213cce18fdb12218ac1a1ff72a6761
+Author: vasudha2796 <37367896+vasudha2796@users.noreply.github.com>
+Date:   Sun May 31 23:03:01 2020 +0200
+
+    Create chat-server.py
+
+commit 15f8e2b760990660eda951275943b5cdadabd690
+Author: vasudha2796 <37367896+vasudha2796@users.noreply.github.com>
+Date:   Sun May 31 23:02:45 2020 +0200
+
+    Create chat-client.py
+
+commit 793dc79269afde8f7371b30b81ba559bfd230d51
+Author: vasudha2796 <37367896+vasudha2796@users.noreply.github.com>
+Date:   Sun May 31 23:02:25 2020 +0200
+
+    Delete chat-server
+
+commit e34191ab3f90a84d9399457aa4e016eb539c901b
+Author: vasudha2796 <37367896+vasudha2796@users.noreply.github.com>
+Date:   Sun May 31 23:02:15 2020 +0200
+
+    Delete chat-client
+
+commit 9844e7cb7dddde057ac244f429a86f61f9f239e9
+Author: vasudha2796 <37367896+vasudha2796@users.noreply.github.com>
+Date:   Sun May 31 23:01:11 2020 +0200
+
+    Create chat-server
+
+commit 3576d973305e0f05c2cabf0a85de04e0301726aa
+Author: vasudha2796 <37367896+vasudha2796@users.noreply.github.com>
+Date:   Sun May 31 23:00:59 2020 +0200
+
+    Create chat-client
+
+commit d32e0cec0b0857c4a4d5bad511970a3a214a879b
+Author: vasudha2796 <37367896+vasudha2796@users.noreply.github.com>
+Date:   Sun May 31 23:00:43 2020 +0200
+
+    Initial commit
