@@ -7,7 +7,7 @@ import select
 import re 
 
 if len(sys.argv)!=3:
-    print("Enter Format: clientscript ip:port nickname")#input format
+    print("Tje format of the command prompt was ipaddress:portnumber nickname")#input format
     sys.exit()
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -15,18 +15,18 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 
-data1 = (sys.argv[1])
-data2=data1.split(':')
-addr=str(data2[0])
-port=int(data2[1])
+D1 = (sys.argv[1])
+D2=D1.split(':')
+address=str(D2[0])
+portnumber=int(D2[1])
 nick=str(sys.argv[2])
 
 
-s.connect((addr, port))
+s.connect((address, portnumber))
 
-first_msg=s.recv(2048).decode('utf-8')
+msg=s.recv(2048).decode('utf-8')
 
-print(first_msg)
+print(msg)
 
 nick = 'NICK ' + nick
 
