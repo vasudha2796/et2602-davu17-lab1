@@ -7,18 +7,18 @@ import select
 import re 
 
 if len(sys.argv)!=2:
-    print("Enter Format: server application ipaddress:port ")
+    print("Format ipaddress:portnumber ")
     sys.exit()
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-data1 = (sys.argv[1])
-data2=data1.split(':')
-addr=str(data2[0])
-port=int(data2[1])
-s.bind((addr,port))
+D1 = (sys.argv[1])
+D2=D1.split(':')
+address=str(D2[0])
+portnumber=int(D2[1])
+s.bind((address,portnumber))
 s.listen(100)
-print('clients are connecting please wait...............')
+print('clients has to be connected')
 clients=[]
 clients.append(s)
 
